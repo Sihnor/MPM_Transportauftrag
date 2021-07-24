@@ -1,40 +1,27 @@
 #include "pch.h"
 #include "Admin.h"
+#include "Klasse.h"
 #include <fstream>
 
-#include <iostream>
 #include <Windows.h>
 #include <lmcons.h>
 
-std::string Transportauftrag_Admin::Admin::to_string(System::String^ s_) {
+using namespace Transportauftrag_Admin;
+
+std::string		Admin::String_to_string				(System::String^ text_) {	
 	std::string s;
-	for (int i = 0; i < s_->Length; i++)
-		s += s_[i];
+
+	for (int i = 0; i < text_->Length; i++)
+		s += text_[i];
 	return s;
 }
 
-System::String^ Transportauftrag_Admin::Admin::to_String(std::string s_)
+System::String^ Admin::string_to_String				(std::string text_)
 {
-	throw gcnew System::NotImplementedException();
-	return gcnew System::String(s_.c_str());
+	return gcnew String(text_.c_str());
 }
 
-const char* Transportauftrag_Admin::Admin::String_to_file(System::String^ text_) {
-	const char* Text[7];
-	for (int i = 0; i < text_->Length; i++)
-	{
-		Text += text_[i];
-		MessageBox::Show(Convert::ToString(Text));
-	}
-	return Text;
-}
-
-System::String^ Transportauftrag_Admin::Admin::file_to_String(const char* text_)
-{
-	return gcnew System::String(text_);
-}
-
-System::Void Transportauftrag_Admin::Admin::showItems(System::Void)
+System::Void	Admin::showItems					(System::Object^ sender)
 {
 	lbl_firstname->Visible = true;
 	lbl_lastname->Visible = true;
@@ -51,10 +38,19 @@ System::Void Transportauftrag_Admin::Admin::showItems(System::Void)
 	tbx_phone->Visible = true;
 
 	btn_cancel->Visible = true;
-	btn_save->Visible = true;
+	btn_save_edit_delete->Visible = true;
+
+	if ((sender == btn_editPerson) || (sender == btn_deletePerson))
+	{
+		lbx_Persons->Visible = true;
+	}
+	else
+	{
+		lbx_Persons->Visible = false;
+	}
 }
 
-System::Void Transportauftrag_Admin::Admin::hideItems(System::Void)
+System::Void	Admin::hideItems					(System::Void)
 {
 	lbl_firstname->Visible = false;
 	lbl_lastname->Visible = false;
@@ -77,56 +73,87 @@ System::Void Transportauftrag_Admin::Admin::hideItems(System::Void)
 	tbx_phone->Clear();
 
 	btn_cancel->Visible = false;
-	btn_save->Visible = false;
+	btn_save_edit_delete->Visible = false;
+
+	lbx_Persons->Visible = false;
 }
 
-System::Void Transportauftrag_Admin::Admin::tbn_editPerson_Click(System::Object^ sender, System::EventArgs^ e)
-{
-}
-
-System::Void Transportauftrag_Admin::Admin::btn_createPerson_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	showItems();
-}
-
-System::Void Transportauftrag_Admin::Admin::btn_deletePerson_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	MessageBox::Show(System::Environment::UserName);
-	return System::Void();
-}
-
-System::Void Transportauftrag_Admin::Admin::btn_cancel_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	hideItems();
-}
-
-System::Void Transportauftrag_Admin::Admin::btn_save_Click(System::Object^ sender, System::EventArgs^ e) {
-	std::fstream savePerson(R"(C:\Users\Marcel\source\repos\Transportauftrag\Dokumente\Person.txt)", std::ios::out);
+System::Void	Admin::saveToFile					(System::Void){
+	std::fstream savePerson;
+	savePerson.open("Person.txt", std::ios::app);
 	
-
-	//savePerson.open(R"(C:\Users\Marcel\source\repos\Transportauftrag\Dokumente\Person.txt)");
 	if (!savePerson)
 	{
 		MessageBox::Show("Fehler beim Öffnen");
 		savePerson.close();
 	}
 	else
-	{//std::ios::binary | 
-		//savePerson.write(to_string(tbx_firstname->Text).c_str(), tbx_firstname->Text->Length);
-		//MessageBox::Show(Convert::ToString(tbx_firstname->Text->Length));
-		savePerson.write(String_to_file(tbx_firstname->Text), tbx_firstname->Text->Length);
-		savePerson.write("\r\n", sizeof(bool));
-		savePerson.write(to_string(tbx_lastname->Text).c_str(), tbx_lastname->Text->Length);
-		savePerson.write("\r\n", sizeof(bool));
-		savePerson.write(to_string(tbx_department->Text).c_str(), tbx_department->Text->Length);
-		savePerson.write("\r\n", sizeof(bool));
-		savePerson.write(to_string(tbx_email->Text).c_str(), tbx_email->Text->Length);
-		savePerson.write("\r\n", sizeof(bool));
-		savePerson.write(to_string(tbx_company->Text).c_str(), tbx_company->Text->Length);
-		savePerson.write("\r\n", sizeof(bool));
-		savePerson.write(to_string(tbx_phone->Text).c_str(), tbx_phone->Text->Length);
-		savePerson.write("\n---------------------------------------", 40);
+	{
+		savePerson << "####################\n";
+		savePerson << this->String_to_string(tbx_firstname->Text) + "\n";
+		savePerson << this->String_to_string(tbx_lastname->Text) + "\n";
+		savePerson << this->String_to_string(tbx_department->Text) + "\n";
+		savePerson << this->String_to_string(tbx_email->Text) + "\n";
+		savePerson << this->String_to_string(tbx_company->Text) + "\n";
+		savePerson << this->String_to_string(tbx_phone->Text) + "\n";
+		MessageBox::Show("Es wurde die Person ERFOLGREICH erstellt.");
 	}
 	savePerson.close();
-	
+	return System::Void();
+}
+
+System::Void	Admin::editFromFile(System::Void)
+{
+	return System::Void();
+}
+
+System::Void	Admin::deleteFromFile				(System::Void)
+{
+	return System::Void();
+}
+
+System::Void	Admin::writeInPersonClass			(System::Void)
+{
+	return System::Void();
+}
+
+System::Void	Admin::btn_createPerson_Click		(System::Object^ sender, System::EventArgs^ e)
+{
+	btn_save_edit_delete->Text = "Create";
+	showItems(sender);
+}
+
+System::Void	Admin::tbn_editPerson_Click			(System::Object^ sender, System::EventArgs^ e)
+{
+	btn_save_edit_delete->Text = "Edit";
+	showItems(sender);
+}
+
+System::Void	Admin::btn_deletePerson_Click		(System::Object^ sender, System::EventArgs^ e)
+{
+	//Zeigt den derzeitigen Benutzer an
+	//MessageBox::Show(System::Environment::UserName);
+	btn_save_edit_delete->Text = "Delete";
+	showItems(sender);
+	return System::Void();
+}
+
+System::Void	Admin::btn_cancel_Click				(System::Object^ sender, System::EventArgs^ e)
+{
+	hideItems();
+}
+
+System::Void	Admin::btn_save_edit_delete_Click	(System::Object^ sender, System::EventArgs^ e) {
+	if (btn_save_edit_delete->Text == "Create")
+	{
+		this->saveToFile();
+	}
+	else if (btn_save_edit_delete->Text == "Edit")
+	{
+		this->editFromFile();
+	}
+	else if (btn_save_edit_delete->Text == "Delete")
+	{
+		this->deleteFromFile();
+	}
 }
