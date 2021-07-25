@@ -25,7 +25,7 @@ std::string Person::getEmail(System::Void){
 std::string Person::getCompany(System::Void){
 	return company;
 }
-int Person::getPhone(System::Void){
+std::string Person::getPhone(System::Void){
 	return phone;
 }
 System::Void Person::setFirstname(std::string firstName_){
@@ -48,7 +48,7 @@ System::Void Person::setCompany(std::string company_){
 	company = company_;
 	return System::Void();
 }
-System::Void Person::setPhone(int phone_){
+System::Void Person::setPhone(std::string phone_){
 	phone = phone_;
 	return System::Void();
 }

@@ -45,14 +45,14 @@ public:
 	std::string getDepartment(System::Void);
 	std::string getEmail(System::Void);
 	std::string getCompany(System::Void);
-	int getPhone(System::Void);
+	std::string getPhone(System::Void);
 
 	System::Void setFirstname(std::string firstName_);
 	System::Void setLastname(std::string lastName_);
 	System::Void setDepartment(std::string department);
 	System::Void setEmail(std::string email_);
 	System::Void setCompany(std::string company_);
-	System::Void setPhone(int phone_);
+	System::Void setPhone(std::string phone_);
 
 private:
 	std::string firstName;
@@ -60,8 +60,7 @@ private:
 	std::string department;
 	std::string email;
 	std::string company;
-
-	int phone;
+	std::string phone;
 
 	Ladestelle stelle;
 };

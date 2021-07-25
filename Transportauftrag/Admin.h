@@ -23,34 +23,32 @@ namespace Transportauftrag_Admin {
 			}
 		}
 
-	private: System::Windows::Forms::Button^	btn_createPerson;
-	private: System::Windows::Forms::Button^ btn_editPerson;
-	private: System::Windows::Forms::Button^ btn_save_edit_delete;
-
-
-
-	private: System::Windows::Forms::Button^	btn_cancel;
-	private: System::Windows::Forms::TextBox^	tbx_firstname;
-	private: System::Windows::Forms::TextBox^	tbx_lastname;
-	private: System::Windows::Forms::TextBox^	tbx_department;
-	private: System::Windows::Forms::TextBox^	tbx_email;
-	private: System::Windows::Forms::TextBox^	tbx_company;
-	private: System::Windows::Forms::TextBox^	tbx_phone;
-	private: System::Windows::Forms::Label^		lbl_firstname;
-	private: System::Windows::Forms::Label^		lbl_lastname;
-	private: System::Windows::Forms::Label^		lbl_department;
-	private: System::Windows::Forms::Label^		lbl_email;
-	private: System::Windows::Forms::Label^		lbl_company;
-	private: System::Windows::Forms::Label^		lbl_telephone;
-	private: System::Windows::Forms::Button^	btn_deletePerson;
-	private: System::Windows::Forms::ListBox^ lbx_Persons;
 	private:
+		System::Windows::Forms::Button^		btn_createPerson;
+		System::Windows::Forms::Button^		btn_editPerson;
+		System::Windows::Forms::Button^		btn_save_edit_delete;
+		System::Windows::Forms::Button^		btn_cancel;
+		System::Windows::Forms::TextBox^	tbx_firstname;
+		System::Windows::Forms::TextBox^	tbx_lastname;
+		System::Windows::Forms::TextBox^	tbx_department;
+		System::Windows::Forms::TextBox^	tbx_email;
+		System::Windows::Forms::TextBox^	tbx_company;
+		System::Windows::Forms::TextBox^	tbx_phone;
+		System::Windows::Forms::Label^		lbl_firstname;
+		System::Windows::Forms::Label^		lbl_lastname;
+		System::Windows::Forms::Label^		lbl_department;
+		System::Windows::Forms::Label^		lbl_email;
+		System::Windows::Forms::Label^		lbl_company;
+		System::Windows::Forms::Label^		lbl_telephone;
+		System::Windows::Forms::Button^		btn_deletePerson;
+		System::Windows::Forms::ListBox^	lbx_Persons;
+
 		System::ComponentModel::Container ^components;
-		std::string		String_to_string			(System::String^ text_);
-		System::String^ string_to_String			(std::string text_);
+		std::string		String_to_string					(System::String^ text_);
+		System::String^ string_to_String					(std::string text_);
 
 #pragma region 
-		void			InitializeComponent			(void) {
+		void			InitializeComponent					(void) {
 			this->btn_createPerson = (gcnew System::Windows::Forms::Button());
 			this->btn_editPerson = (gcnew System::Windows::Forms::Button());
 			this->btn_save_edit_delete = (gcnew System::Windows::Forms::Button());
@@ -89,7 +87,7 @@ namespace Transportauftrag_Admin {
 			this->btn_editPerson->TabIndex = 2;
 			this->btn_editPerson->Text = L"Edit Existing Person";
 			this->btn_editPerson->UseVisualStyleBackColor = true;
-			this->btn_editPerson->Click += gcnew System::EventHandler(this, &Admin::tbn_editPerson_Click);
+			this->btn_editPerson->Click += gcnew System::EventHandler(this, &Admin::btn_editPerson_Click);
 			// 
 			// btn_save_edit_delete
 			// 
@@ -239,6 +237,7 @@ namespace Transportauftrag_Admin {
 			this->lbx_Persons->Size = System::Drawing::Size(495, 199);
 			this->lbx_Persons->TabIndex = 18;
 			this->lbx_Persons->Visible = false;
+			this->lbx_Persons->SelectedValueChanged += gcnew System::EventHandler(this, &Admin::lbx_Persons_SelectedValueChanged);
 			// 
 			// Admin
 			// 
@@ -269,17 +268,20 @@ namespace Transportauftrag_Admin {
 			this->PerformLayout();
 
 		}
-		System::Void	showItems					(System::Object^ sender);
-		System::Void	hideItems					(System::Void);
-		System::Void	saveToFile					(System::Void);
-		System::Void	deleteFromFile				(System::Void);
-		System::Void	editFromFile				(System::Void);
-		System::Void	writeInPersonClass			(System::Void);
+		System::Void	showItems							(System::Object^ sender);
+		System::Void	hideItems							(System::Void);
+		System::Void	clearItems							(System::Void);
+		System::Void	addPerson							(System::Void);
+		System::Void	editPerson							(System::Void);
+		System::Void	deletePerson						(System::Void);
+		System::Void	writeInPersonClass					(System::Void);
+		System::Void	loadPersonsIntoListBox				(System::Void);
 #pragma endregion
-		System::Void	tbn_editPerson_Click		(System::Object^ sender, System::EventArgs^ e);
-		System::Void	btn_createPerson_Click		(System::Object^ sender, System::EventArgs^ e);
-		System::Void	btn_deletePerson_Click		(System::Object^ sender, System::EventArgs^ e);
-		System::Void	btn_cancel_Click			(System::Object^ sender, System::EventArgs^ e);
-		System::Void	btn_save_edit_delete_Click	(System::Object^ sender, System::EventArgs^ e);
+		System::Void	btn_editPerson_Click				(System::Object^ sender, System::EventArgs^ e);
+		System::Void	btn_createPerson_Click				(System::Object^ sender, System::EventArgs^ e);
+		System::Void	btn_deletePerson_Click				(System::Object^ sender, System::EventArgs^ e);
+		System::Void	btn_cancel_Click					(System::Object^ sender, System::EventArgs^ e);
+		System::Void	btn_save_edit_delete_Click			(System::Object^ sender, System::EventArgs^ e);
+		System::Void	lbx_Persons_SelectedValueChanged	(System::Object^ sender, System::EventArgs^ e);
 };
 }
