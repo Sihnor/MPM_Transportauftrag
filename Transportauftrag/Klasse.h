@@ -30,7 +30,6 @@ private:
 
 	int door;
 };
-
 class Person
 {
 public:

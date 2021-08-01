@@ -237,7 +237,7 @@ namespace Transportauftrag_Admin {
 			this->lbx_Persons->Size = System::Drawing::Size(495, 199);
 			this->lbx_Persons->TabIndex = 18;
 			this->lbx_Persons->Visible = false;
-			this->lbx_Persons->SelectedValueChanged += gcnew System::EventHandler(this, &Admin::lbx_Persons_SelectedValueChanged);
+			this->lbx_Persons->SelectedIndexChanged += gcnew System::EventHandler(this, &Admin::lbx_Persons_SelectedIndexChanged);
 			// 
 			// Admin
 			// 
@@ -282,6 +282,6 @@ namespace Transportauftrag_Admin {
 		System::Void	btn_deletePerson_Click				(System::Object^ sender, System::EventArgs^ e);
 		System::Void	btn_cancel_Click					(System::Object^ sender, System::EventArgs^ e);
 		System::Void	btn_save_edit_delete_Click			(System::Object^ sender, System::EventArgs^ e);
-		System::Void	lbx_Persons_SelectedValueChanged	(System::Object^ sender, System::EventArgs^ e);
+		System::Void	lbx_Persons_SelectedIndexChanged	(System::Object^ sender, System::EventArgs^ e);
 };
 }
